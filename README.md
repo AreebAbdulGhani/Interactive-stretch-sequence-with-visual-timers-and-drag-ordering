@@ -32,7 +32,7 @@ An interactive web application for creating and following personalized stretch r
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/Interactive-stretch-sequence-with-visual-timers-and-drag-ordering.git
+git clone https://github.com/AreebAbdulGhani/Interactive-stretch-sequence-with-visual-timers-and-drag-ordering.git
 cd Interactive-stretch-sequence-with-visual-timers-and-drag-ordering
 ```
 
