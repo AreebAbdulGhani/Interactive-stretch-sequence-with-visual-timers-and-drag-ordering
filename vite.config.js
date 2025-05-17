@@ -4,5 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/StretchFlow-Interactive/', // GitHub Pages base path updated
+  base: process.env.NODE_ENV === 'production' 
+    ? '/Interactive-stretch-sequence-with-visual-timers-and-drag-ordering/' 
+    : '/',
 })
