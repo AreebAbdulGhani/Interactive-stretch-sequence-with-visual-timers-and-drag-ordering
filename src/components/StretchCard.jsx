@@ -154,21 +154,10 @@ const StretchCard = ({ pose, index, isDragging }) => {
         
         {/* Content container */}
         <div className="relative flex flex-col items-center z-10" ref={textRef}>
-          <div className="w-24 h-24 mt-3 mb-5 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center overflow-hidden shadow-lg border-2 border-white/50 dark:border-gray-700/50 transform-gpu">
-            {pose.imageUrl ? (
-              <div className="w-full h-full overflow-hidden rounded-full">
-                <img 
-                  ref={imageRef} 
-                  src={pose.imageUrl} 
-                  alt={pose.name} 
-                  className="w-full h-full object-cover transform-gpu"
-                />
-              </div>
-            ) : (
-              <div className="text-3xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
-                {pose.name.charAt(0)}
-              </div>
-            )}
+          <div className="w-24 h-24 mt-3 mb-5 bg-gradient-to-br from-primary/80 to-secondary/80 rounded-full flex items-center justify-center shadow-lg border-2 border-white/50 dark:border-gray-700/50 transform-gpu">
+            <div className="text-3xl font-bold text-white">
+              {pose.name.charAt(0)}
+            </div>
           </div>
           
           <div className="text-center">

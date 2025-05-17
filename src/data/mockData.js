@@ -4,7 +4,6 @@ export const initialStretchPoses = [
     name: 'Forward Fold',
     duration: 30, // seconds
     description: 'Bend forward from the base of the hips, keeping back straight until you feel a stretch.',
-    imageUrl: '/assets/forward-fold.svg',
     hasSound: true,
   },
   {
@@ -12,7 +11,6 @@ export const initialStretchPoses = [
     name: 'Downward Dog',
     duration: 45,
     description: 'Form an inverted V shape with your body, pushing your hips up and back.',
-    imageUrl: '/assets/downward-dog.svg',
     hasSound: true,
   },
   {
@@ -20,7 +18,6 @@ export const initialStretchPoses = [
     name: 'Warrior II',
     duration: 60,
     description: 'Front knee bent at 90°, back leg straight, arms parallel to the ground.',
-    imageUrl: '/assets/warrior-2.svg',
     hasSound: true,
   },
   {
@@ -28,7 +25,6 @@ export const initialStretchPoses = [
     name: 'Tree Pose',
     duration: 40,
     description: 'Balance on one leg with the other foot placed on inner thigh, hands in prayer position.',
-    imageUrl: '/assets/tree-pose.svg',
     hasSound: true,
   },
   {
@@ -36,7 +32,6 @@ export const initialStretchPoses = [
     name: 'Child\'s Pose',
     duration: 50,
     description: 'Kneel and stretch forward with arms extended, forehead touching the ground.',
-    imageUrl: '/assets/childs-pose.svg',
     hasSound: true,
   },
   {
@@ -44,7 +39,6 @@ export const initialStretchPoses = [
     name: 'Cobra Pose',
     duration: 35,
     description: 'Lie on your stomach, push up with arms while keeping hips on the ground.',
-    imageUrl: '/assets/cobra-pose.svg',
     hasSound: true,
   },
 ]; 
