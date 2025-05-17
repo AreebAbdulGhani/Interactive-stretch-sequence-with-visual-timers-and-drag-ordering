@@ -1,4 +1,4 @@
-# Interactive Stretch Sequence with Visual Timers and Drag Ordering
+# StretchFlow Interactive
 
 ![StretchFlow App](https://i.ibb.co/7nQMRyL/stretchflow-preview.jpg)
 
@@ -32,8 +32,8 @@ An interactive web application for creating and following personalized stretch r
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/AreebAbdulGhani/Interactive-stretch-sequence-with-visual-timers-and-drag-ordering.git
-cd Interactive-stretch-sequence-with-visual-timers-and-drag-ordering
+git clone https://github.com/AreebAbdulGhani/StretchFlow-Interactive.git
+cd StretchFlow-Interactive
 ```
 
 2. Install dependencies:
