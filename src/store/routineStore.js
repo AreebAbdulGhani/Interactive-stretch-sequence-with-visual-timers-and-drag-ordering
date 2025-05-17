@@ -23,7 +23,7 @@ const useRoutineStore = create(
       currentPoseIndex: -1, // -1 means not started
       isPlaying: false,
       routineSpeed: 'normal', // slow, normal, fast
-      isDarkMode: typeof window !== 'undefined' ? getSystemPreference() : false,
+      isDarkMode: false, // Default to light mode
       errorState: null,
       
       // Actions
