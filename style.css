@@ -1,0 +1,59 @@
+/* Fallback styles in case Tailwind doesn't load properly */
+:root {
+  --color-primary: 79, 70, 229;    /* #4F46E5 */
+  --color-secondary: 16, 185, 129; /* #10B981 */
+  --color-background: 249, 250, 251; /* #F9FAFB */
+  --color-darkBg: 17, 24, 39;      /* #111827 */
+  --color-accent: 236, 72, 153;    /* #EC4899 */
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: rgb(var(--color-background));
+  color: #1F2937;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: rgb(var(--color-primary));
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: rgb(67, 56, 202);
+}
+
+.btn-secondary {
+  background-color: rgb(var(--color-secondary));
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: rgb(5, 150, 105);
+} 
