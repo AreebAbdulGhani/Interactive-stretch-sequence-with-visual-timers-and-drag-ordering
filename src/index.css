@@ -1,0 +1,762 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #4F46E5;
+    --primary-dark: #4338CA;
+    --secondary: #10B981;
+    --background: #F9FAFB;
+    --dark-bg: #111827;
+    --footer-gradient-from: #4F46E5;
+    --footer-gradient-to: #8B5CF6;
+  }
+
+  html {
+    font-family: 'Poppins', system-ui, sans-serif;
+    scroll-behavior: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800;
+    min-height: 100vh;
+    transition: background-color 0.8s ease;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* Force hardware acceleration */
+  * {
+    /* Remove excessive hardware acceleration that causes performance issues */
+    transform: none;
+    backface-visibility: visible;
+    perspective: none;
+    transform-style: flat;
+    /* Only enable will-change on elements that truly need it */
+    will-change: auto;
+  }
+
+  /* Reduce reflow and improve rendering performance */
+  body, #root, .app-container {
+    transform: translateZ(0);
+    will-change: auto;
+    isolation: isolate;
+    background-color: #4F46E5;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Prevent initial white flash */
+  html, body {
+    background-color: #4F46E5 !important;
+    min-height: 100vh;
+    transition: background-color 0.8s ease;
+  }
+
+  /* Reduce layout thrashing */
+  img, svg {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Optimize animations */
+  .animate-float, .animate-pulse, .animate-spin-slow, .animate-pulse-scale {
+    animation-duration: 6s;
+    animation-play-state: paused;
+  }
+
+  /* Only hide overflow for fullscreen modal */
+  .modal-open {
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Only animate when in viewport */
+  .in-viewport {
+    animation-play-state: running;
+  }
+
+  /* Reduce the number of animated background elements */
+  .decorative-circle:nth-child(n+4) {
+    display: none;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg overflow-hidden;
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    letter-spacing: 0.01em;
+  }
+  
+  .btn {
+    @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 transform-gpu;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.02em;
+  }
+  
+  .btn-primary {
+    @apply btn text-white;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.6);
+  }
+  
+  .btn-secondary {
+    @apply btn bg-secondary/90 text-white hover:bg-secondary;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+  }
+
+  .btn-secondary:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+  }
+
+  /* Premium Animations - Added for enhanced UI */
+  
+  /* Animated gradient background */
+  @keyframes gradient-x {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .animate-gradient-x {
+    background-size: 200% 200%;
+    animation: gradient-x 15s ease infinite;
+  }
+  
+  /* Floating animation for decorative elements */
+  @keyframes float {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0) scale(1);
+    }
+    33% {
+      transform: translateY(-10px) translateX(5px) rotate(2deg) scale(1.02);
+    }
+    66% {
+      transform: translateY(-5px) translateX(-5px) rotate(-2deg) scale(1.01);
+    }
+    100% {
+      transform: translateY(0) translateX(0) rotate(0) scale(1);
+    }
+  }
+  
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  /* Slow spin animation */
+  @keyframes spin-slow {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+  }
+  
+  /* Pulse animation with scale */
+  @keyframes pulse-scale {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+  
+  .animate-pulse-scale {
+    animation: pulse-scale 4s ease-in-out infinite;
+  }
+  
+  /* Shine effect for cards and buttons */
+  @keyframes shine {
+    0% {
+      background-position: -100% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .premium-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .premium-shine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.1) 25%,
+      rgba(255, 255, 255, 0.2) 30%,
+      transparent 35%
+    );
+    background-size: 200% 100%;
+    animation: shine 4s linear infinite;
+    pointer-events: none;
+  }
+  
+  /* Enhanced premium shine effect */
+  .premium-shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transform: skewX(-25deg);
+    animation: shine-premium 4s ease-in-out infinite;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  @keyframes shine-premium {
+    0% {
+      left: -100%;
+    }
+    20% {
+      left: 100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* Wave animation keyframes */
+  @keyframes wave {
+    0% {
+      transform: translateX(0) translateZ(0) scaleY(1);
+    }
+    50% {
+      transform: translateX(-25%) translateZ(0) scaleY(1.2);
+    }
+    100% {
+      transform: translateX(-50%) translateZ(0) scaleY(1);
+    }
+  }
+
+  /* Text float animation keyframes */
+  @keyframes textFloat {
+    0%, 100% { 
+      transform: translateY(0) translateZ(0) rotate(-1deg); 
+      text-shadow: 0 4px 8px rgba(79, 70, 229, 0.2);
+    }
+    50% { 
+      transform: translateY(-10px) translateZ(0) rotate(1deg);
+      text-shadow: 0 8px 16px rgba(79, 70, 229, 0.4);
+    }
+  }
+
+  /* Background pulse animation keyframes */
+  @keyframes backgroundPulse {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Glow animation keyframes */
+  @keyframes glow {
+    0%, 100% { 
+      opacity: 0.4;
+      filter: blur(8px);
+      transform: scale(1) translateZ(0);
+    }
+    50% { 
+      opacity: 0.8;
+      filter: blur(16px);
+      transform: scale(1.2) translateZ(0);
+    }
+  }
+
+  /* Particle float animation */
+  @keyframes particleFloat {
+    0%, 100% {
+      transform: translateY(0) translateX(0) rotate(0) scale(1) translateZ(0);
+      opacity: 0.3;
+    }
+    25% {
+      transform: translateY(-15px) translateX(15px) rotate(5deg) scale(1.2) translateZ(0);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateY(-25px) translateX(-15px) rotate(-5deg) scale(1.4) translateZ(0);
+      opacity: 0.8;
+    }
+    75% {
+      transform: translateY(-15px) translateX(15px) rotate(5deg) scale(1.2) translateZ(0);
+      opacity: 0.6;
+    }
+  }
+
+  /* Breathing animation */
+  @keyframes breathing {
+    0%, 100% {
+      transform: scale(1) rotate(0) translateZ(0);
+      filter: brightness(1);
+    }
+    50% {
+      transform: scale(1.1) rotate(1deg) translateZ(0);
+      filter: brightness(1.2);
+    }
+  }
+
+  /* Timer pulse animation */
+  @keyframes timerPulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+  }
+  
+  /* Progress animation for loading/intro */
+  @keyframes progress {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  .animate-progress {
+    animation: progress 3s ease forwards;
+  }
+  
+  .animate-progress-fast {
+    animation: progress 2s ease forwards;
+  }
+  
+  /* Ping animation for decorative elements */
+  @keyframes ping-slow {
+    75%, 100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+  
+  .animate-ping-slow {
+    animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  /* Wave ripple effect */
+  @keyframes ripple {
+    0% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  /* Background shimmer */
+  @keyframes shimmer {
+    0% {
+      background-position: -100% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  
+  .absolute-center {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform-gpu;
+  }
+
+  /* Glass effect utility */
+  .glass {
+    @apply bg-white/20 dark:bg-gray-900/20;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* 3D transform utilities */
+  .preserve-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    backface-visibility: hidden;
+  }
+
+  .rotate-y {
+    transform: rotateY(var(--rotate-y, 0deg)) translateZ(0);
+  }
+
+  /* Animation utilities */
+  .animate-wave {
+    animation: wave 10s linear infinite;
+    will-change: transform;
+  }
+
+  .animate-text-float {
+    animation: textFloat 3s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .animate-background-pulse {
+    animation: backgroundPulse 15s ease infinite;
+    background-size: 400% 400%;
+    will-change: background-position;
+  }
+
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite;
+    will-change: transform, opacity, filter;
+  }
+
+  .animate-particle {
+    animation: particleFloat 6s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  .animate-breathing {
+    animation: breathing 4s ease-in-out infinite;
+    will-change: transform, filter;
+  }
+
+  .animate-timer-pulse {
+    animation: timerPulse 2s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  .animate-ripple {
+    animation: ripple 2s ease-out infinite;
+    will-change: transform, opacity;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 8s ease-in-out infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background-size: 200% 100%;
+    will-change: background-position;
+  }
+
+  /* Text truncation utilities */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/50;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  @apply bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent;
+  background-size: 200% auto;
+  animation: textGradient 4s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes textGradient {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Animated background utility */
+.animated-bg {
+  @apply bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5;
+  background-size: 400% 400%;
+  animation: backgroundPulse 15s ease infinite;
+  will-change: background-position;
+}
+
+/* Glow effect utility */
+.glow {
+  @apply relative;
+}
+
+.glow::after {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 blur-xl opacity-0;
+  animation: glow 3s ease-in-out infinite;
+  will-change: opacity, filter;
+}
+
+/* Wave effect utility */
+.wave-container {
+  @apply relative overflow-hidden;
+}
+
+.wave-effect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  animation: wave 3s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Breathing container utility */
+.breathing-container {
+  animation: breathing 4s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+/* Particle system utility */
+.particle-system {
+  @apply absolute inset-0 pointer-events-none overflow-hidden;
+}
+
+.particle {
+  @apply absolute w-2 h-2 rounded-full bg-primary/20;
+  animation: particleFloat 6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Timer ripple effect */
+.timer-ripple::before, .timer-ripple::after {
+  content: '';
+  @apply absolute inset-0 rounded-full;
+  background: rgba(79, 70, 229, 0.3);
+  z-index: -1;
+}
+
+.timer-ripple::before {
+  animation: ripple 2s ease-out infinite;
+}
+
+.timer-ripple::after {
+  animation: ripple 2s ease-out 0.5s infinite;
+}
+
+/* Timer flow effect */
+@keyframes flow-down {
+  0% {
+    transform: translateY(-5%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.timer-flow-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.timer-flow {
+  @apply absolute w-full rounded-full;
+  background: linear-gradient(to top, var(--primary), transparent);
+  animation: flow-down 1s ease-out infinite;
+  will-change: transform, opacity;
+  transition: height 0.5s linear;
+}
+
+/* Shimmer effect */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+/* Stronger timer styles to ensure visibility */
+.timer-circle-container {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Ensure text is very visible */
+.timer-text {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+}
+
+/* Ensure the progress circle is clearly visible */
+.progress-circle {
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Override any transform effects that might interfere */
+.transform-reset {
+  transform: none !important;
+  transform-style: flat !important;
+  perspective: none !important;
+}
+
+/* Force hardware acceleration again */
+.force-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  will-change: transform, opacity;
+}
+
+/* Ensure modal overlays above everything */
+.modal-overlay {
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Stronger container styling */
+.content-container {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-y: visible;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 2rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 1rem;
+  backdrop-filter: blur(16px);
+}
+
+/* Ensure React's root element has proper background */
+#root {
+  background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Override transitions on splash screen for smoother loading */
+.fixed.inset-0.z-50 {
+  transition: opacity 0.5s ease-out;
+  background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+}
+
+/* Only apply hardware acceleration selectively */
+.force-gpu,
+.card,
+.app-header,
+.btn {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Simplify the premium shine effects that cause performance issues */
+.premium-shine::after,
+.premium-shine::before {
+  animation-duration: 8s; /* Slow down the animation */
+  animation-timing-function: ease-in-out;
+  display: none; /* Disable on mobile for performance */
+}
+
+@media (min-width: 1024px) {
+  .premium-shine::after,
+  .premium-shine::before {
+    display: block; /* Only show on larger screens */
+  }
+}
+
+/* Animate footer with CSS variables instead of JavaScript */
+footer {
+  background: linear-gradient(to right, var(--footer-gradient-from), var(--footer-gradient-to));
+  animation: footer-gradient 15s ease-in-out infinite alternate;
+}
+
+@keyframes footer-gradient {
+  0% {
+    --footer-gradient-from: #4F46E5;
+    --footer-gradient-to: #8B5CF6;
+  }
+  33% {
+    --footer-gradient-from: #7C3AED;
+    --footer-gradient-to: #8B5CF6;
+  }
+  66% {
+    --footer-gradient-from: #8B5CF6;
+    --footer-gradient-to: #6366F1;
+  }
+  100% {
+    --footer-gradient-from: #6366F1;
+    --footer-gradient-to: #4F46E5;
+  }
+}

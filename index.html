@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/placeholder-pose.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StretchFlow - Interactive Stretch Routine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <!-- Immediate styles to prevent flash -->
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+        height: 100%;
+        overflow: hidden;
+        color: white;
+      }
+      
+      #root {
+        background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+        min-height: 100vh;
+      }
+      
+      #initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+        animation: fadeIn 0.3s ease-out forwards;
+        background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      .initial-logo {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(to right, #E2E8F0, #CBD5E1);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: pulse 2s infinite ease-in-out;
+      }
+      
+      .initial-tagline {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+      }
+      
+      .initial-progress {
+        width: 240px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+        overflow: hidden;
+        position: relative;
+        margin-top: 2rem;
+      }
+      
+      .initial-progress::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(to right, #4F46E5, #8B5CF6);
+        animation: loading 1.5s infinite ease-out;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.8; }
+      }
+      
+      @keyframes loading {
+        0% { width: 0; }
+        50% { width: 100%; }
+        100% { width: 0; }
+      }
+      
+      .decor-item {
+        position: absolute;
+        opacity: 0.3;
+        pointer-events: none;
+        animation: float 3s infinite ease-in-out;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      
+      /* Only hide initial loader when React confirms it can take over */
+      #root:not(:empty) ~ #initial-loader {
+        display: none;
+      }
+      
+      /* Prevent any white flash during transitions */
+      .app-transition {
+        background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Initial loader that displays before React loads -->
+    <div id="initial-loader">
+      <div class="initial-logo">StretchFlow</div>
+      <div class="initial-tagline">Premium Stretch Experience</div>
+      <div class="initial-progress"></div>
+      
+      <!-- Decorative items -->
+      <svg class="decor-item" style="top: 20%; left: 10%; width: 30px; height: 30px;" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+      </svg>
+      <svg class="decor-item" style="bottom: 30%; right: 15%; width: 24px; height: 24px;" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
+      </svg>
+      <svg class="decor-item" style="top: 40%; right: 30%; width: 36px; height: 36px;" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M15.5,4 L17,4 C20.5,4 21,7 21,12 C21,16 20.5,19 18,19 C16.5,19 15,17.5 15,15.5 C15,13.5 16,12 16,12 L16,2 L12,2 L12,12 C12,12 10.5,13.5 10.5,15.5 C10.5,17.5 9,19 7.5,19 C5,19 4.5,16 4.5,12 C4.5,7 5,4 8.5,4 L10,4"></path>
+      </svg>
+    </div>
+    
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <script>
+      // Add transition element to prevent white flash
+      const transitionEl = document.createElement('div');
+      transitionEl.className = 'app-transition';
+      document.body.appendChild(transitionEl);
+      
+      // Make sure the loader is visible and properly transitions
+      document.addEventListener('DOMContentLoaded', function() {
+        const initialLoader = document.getElementById('initial-loader');
+        if (initialLoader) {
+          // Make sure it's fully visible
+          initialLoader.style.opacity = '1';
+          initialLoader.style.display = 'flex';
+        }
+        
+        // Watch for React content
+        const observer = new MutationObserver(function(mutations) {
+          if (document.getElementById('root').hasChildNodes()) {
+            // The React app has started rendering
+            // We'll keep the loader visible until the SplashScreen component signals ready
+            observer.disconnect();
+            
+            // The transition element will be removed by SplashScreen component
+            window.APP_READY_FOR_TRANSITION = true;
+          }
+        });
+        
+        observer.observe(document.getElementById('root'), { childList: true });
+        
+        // Backup safety - if loader is still visible after 6 seconds, fade it out
+        setTimeout(() => {
+          const loader = document.getElementById('initial-loader');
+          const transition = document.querySelector('.app-transition');
+          
+          if (loader && getComputedStyle(loader).display !== 'none') {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+              loader.style.display = 'none';
+              
+              // Also remove transition element in the backup case
+              if (transition) {
+                transition.style.opacity = '0';
+                setTimeout(() => {
+                  transition.remove();
+                }, 300);
+              }
+            }, 500);
+          }
+        }, 6000);
+      });
+    </script>
+  </body>
+</html>
